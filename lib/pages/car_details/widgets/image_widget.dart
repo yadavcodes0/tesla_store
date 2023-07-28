@@ -38,7 +38,7 @@ class _ImageWidgetState extends State<ImageWidget> {
           itemCount: widget.widget.car.image.length,
           itemBuilder: (context, index, realIndex) {
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Image.asset(
                 widget.widget.car.image[index],
               ),
