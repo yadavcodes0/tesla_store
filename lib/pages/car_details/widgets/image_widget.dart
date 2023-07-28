@@ -1,43 +1,71 @@
-import 'package:another_carousel_pro/another_carousel_pro.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../car_details.dart';
 
-class ImageWidget extends StatelessWidget {
+class ImageWidget extends StatefulWidget {
   const ImageWidget({
-    super.key,
+    Key? key,
     required this.size,
     required this.widget,
-  });
+  }) : super(key: key);
 
   final Size size;
   final CarDetails widget;
 
   @override
+  State<ImageWidget> createState() => _ImageWidgetState();
+}
+
+class _ImageWidgetState extends State<ImageWidget> {
+  int _currentImageIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      height: size.height * 0.30,
-      width: size.width,
-      decoration: const BoxDecoration(
-        color: Colors.transparent,
-      ),
-      child: AnotherCarousel(
-        dotHorizontalPadding: 10,
-        animationCurve: Curves.bounceInOut,
-        dotColor: Colors.grey,
-        dotSpacing: 16.0,
-        dotIncreaseSize: 1.1,
-        dotSize: 10,
-        dotBgColor: Colors.transparent,
-        boxFit: BoxFit.contain,
-        autoplay: false,
-        images: [
-          AssetImage(widget.car.image.first),
-          AssetImage(widget.car.image[1]),
-          AssetImage(widget.car.image[2]),
-        ],
-      ),
+    return Column(
+      children: [
+        CarouselSlider.builder(
+          options: CarouselOptions(
+            enableInfiniteScroll: false,
+            aspectRatio: 16 / 9,
+            viewportFraction: 1,
+            onPageChanged: (index, reason) {
+              setState(() {
+                _currentImageIndex = index;
+              });
+            },
+          ),
+          itemCount: widget.widget.car.image.length,
+          itemBuilder: (context, index, realIndex) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                widget.widget.car.image[index],
+              ),
+            );
+          },
+        ),
+        _buildDotIndicators(widget.widget.car.image.length),
+      ],
+    );
+  }
+
+  Widget _buildDotIndicators(int itemCount) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(itemCount, (index) {
+        return Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Container(
+            width: 8,
+            height: 8,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: _currentImageIndex == index ? Colors.white : Colors.grey,
+            ),
+          ),
+        );
+      }),
     );
   }
 }
