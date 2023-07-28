@@ -53,19 +53,22 @@ class _ImageWidgetState extends State<ImageWidget> {
   Widget _buildDotIndicators(int itemCount) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(itemCount, (index) {
-        return Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: _currentImageIndex == index ? Colors.white : Colors.grey,
+      children: List.generate(
+        itemCount,
+        (index) {
+          return Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Container(
+              width: _currentImageIndex == index ? 10 : 8,
+              height: _currentImageIndex == index ? 10 : 8,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _currentImageIndex == index ? Colors.white : Colors.grey,
+              ),
             ),
-          ),
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 }
