@@ -19,12 +19,14 @@ class ImageWidget extends StatefulWidget {
 
 class _ImageWidgetState extends State<ImageWidget> {
   int _currentImageIndex = 0;
+  final CarouselController _controller = CarouselController();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         CarouselSlider.builder(
+          carouselController: _controller,
           options: CarouselOptions(
             enableInfiniteScroll: false,
             aspectRatio: 16 / 9,
@@ -58,12 +60,18 @@ class _ImageWidgetState extends State<ImageWidget> {
         (index) {
           return Padding(
             padding: const EdgeInsets.all(4.0),
-            child: Container(
-              width: _currentImageIndex == index ? 10 : 8,
-              height: _currentImageIndex == index ? 10 : 8,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _currentImageIndex == index ? Colors.white : Colors.grey,
+            child: GestureDetector(
+              onTap: () {
+                _controller.animateToPage(index);
+              },
+              child: Container(
+                width: _currentImageIndex == index ? 10 : 8,
+                height: _currentImageIndex == index ? 10 : 8,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color:
+                      _currentImageIndex == index ? Colors.white : Colors.grey,
+                ),
               ),
             ),
           );
