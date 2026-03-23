@@ -66,11 +66,11 @@ class _CarDetailsState extends State<CarDetails> {
               ),
             ),
             const SizedBox(height: 8),
-            const Padding(
-              padding: EdgeInsets.only(left: 16.0, right: 16.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0, right: 16.0),
               child: Text(
-                "Model S is build for speed and range , with beyond ludicrus acceleration unparalleled performance and a sleek aesthetic.",
-                style: TextStyle(
+                widget.car.description,
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                 ),

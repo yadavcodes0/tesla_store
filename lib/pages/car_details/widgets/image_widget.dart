@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../car_details.dart';
@@ -19,33 +18,44 @@ class ImageWidget extends StatefulWidget {
 
 class _ImageWidgetState extends State<ImageWidget> {
   int _currentImageIndex = 0;
-  final CarouselController _controller = CarouselController();
+  late final PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CarouselSlider.builder(
-          carouselController: _controller,
-          options: CarouselOptions(
-            enableInfiniteScroll: false,
-            aspectRatio: 16 / 9,
-            viewportFraction: 1,
-            onPageChanged: (index, reason) {
+        AspectRatio(
+          aspectRatio: 16 / 9,
+          child: PageView.builder(
+            controller: _pageController,
+            itemCount: widget.widget.car.image.length,
+            onPageChanged: (index) {
               setState(() {
                 _currentImageIndex = index;
               });
             },
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Image.asset(
+                  widget.widget.car.image[index],
+                  fit: BoxFit.contain,
+                ),
+              );
+            },
           ),
-          itemCount: widget.widget.car.image.length,
-          itemBuilder: (context, index, realIndex) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Image.asset(
-                widget.widget.car.image[index],
-              ),
-            );
-          },
         ),
         _buildDotIndicators(widget.widget.car.image.length),
       ],
@@ -62,7 +72,11 @@ class _ImageWidgetState extends State<ImageWidget> {
             padding: const EdgeInsets.all(4.0),
             child: GestureDetector(
               onTap: () {
-                _controller.animateToPage(index);
+                _pageController.animateToPage(
+                  index,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
               },
               child: Container(
                 width: _currentImageIndex == index ? 10 : 8,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const List<String> carTabs = ["MODEL S", "MODEL 3", "MODEL X", "MODEL Y"];
+
 class HorizontalTabBar extends StatelessWidget {
   const HorizontalTabBar({
     super.key,
@@ -28,7 +30,7 @@ class HorizontalTabBar extends StatelessWidget {
         ),
       ),
       onTap: onTap,
-      tabs: ["MODEL S", "MODEL 3", "MODEL X", "MODEL Y"]
+      tabs: carTabs
           .map(
             (e) => Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),

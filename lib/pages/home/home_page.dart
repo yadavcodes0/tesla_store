@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var selectedTabBar = "MODEL S";
+  var selectedTabBar = carTabs[0];
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
               HorizontalTabBar(
                 onTap: (p0) {
                   setState(() {
-                    selectedTabBar = getSelectedTab(p0);
+                    selectedTabBar = carTabs[p0];
                   });
                 },
               ),
@@ -85,20 +85,5 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-  }
-
-  String getSelectedTab(int index) {
-    switch (index) {
-      case 0:
-        return "MODEL S";
-      case 1:
-        return "MODEL 3";
-      case 2:
-        return "MODEL X";
-      case 3:
-        return "MODEL Y";
-      default:
-        return "MODEL S";
-    }
   }
 }
