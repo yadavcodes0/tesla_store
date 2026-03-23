@@ -4,7 +4,7 @@
 
 A premium, cinematic Tesla-inspired vehicle showroom and reservation application built with Flutter. Experience the future of EV purchasing with a high-performance, mobile-first design.
 
-### 🔗 [Live Demo (Vercel)](https://web-orcin-delta-39.vercel.app)
+### 🔗 [Live Demo (Vercel)](https://teslastore.vercel.app)
 
 ---
 
